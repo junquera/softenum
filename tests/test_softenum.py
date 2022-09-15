@@ -17,11 +17,22 @@ def test():
     assert A.a != A('A')
     assert A(A.a) == A.a
 
+
     try:
         class X(str, Softenum):
             enumerated = {"1": "jejeje"}
     except:
         assert True
+
+    try:
+        class X(str, Softenum):
+            _enumerated = "jejeje"
+    except:
+        assert True
+
+
+    class X(Softenum):
+        enumerated = "jejeje"
 
     class X(int, Softenum):
         a = 1

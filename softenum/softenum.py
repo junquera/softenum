@@ -1,3 +1,5 @@
+Softenum = None
+
 class Softenummeta(type):
 
     def __new__(metacls, cls, bases, classdict, **kwargs):       
@@ -10,9 +12,16 @@ class Softenummeta(type):
                 __new__ = getattr(base, "__new__")
                 if __new__:
                     break
+        
+        # Avoid infinite loops
+        if Softenum is not None:
+             if __new__ is Softenum.__new__:
+                __new__ = None
 
+        use_args = True
         if __new__ is None:
             __new__ = object.__new__
+            use_args = False
 
         # 
         target_bases = bases + (object,)
@@ -45,7 +54,11 @@ class Softenummeta(type):
             else:
                 args = value
 
-            enum_member = __new__(enum_class, *args)
+            if use_args:
+                enum_member = __new__(enum_class, *args)
+            else:
+                enum_member = __new__(enum_class)
+
             enum_member._name_ = element
             enum_member._value_ = args
             enum_member.__objclass__ = enum_class
@@ -62,8 +75,12 @@ class Softenummeta(type):
 class Softenum(metaclass=Softenummeta):
 
     def __new__(cls, value):
-        
+
+        print(cls.mro())
+
         if type(value) is cls:
+            return value
+        elif isinstance(value, cls):
             return value
         else:
             return cls(value)
