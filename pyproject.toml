@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "softenum"
-version = "1.0.0"
+version = "1.0.1"
 description = ""
 authors = ["Javier Junquera-Sánchez <javier@junquera.io>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.7.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
