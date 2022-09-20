@@ -3,7 +3,7 @@ from softenum import __version__
 from softenum import Softenum
 
 def test_version():
-    assert __version__ == '0.1.0'    
+    assert __version__ == '1.0.1'    
 
 def test_str():
 

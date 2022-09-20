@@ -93,6 +93,7 @@ class Softenum(metaclass=Softenummeta):
         else:
             return cls(value)
 
+    # FIXME Not working when inheritance
     def __repr__(self):
         return "<%s.%s: %r>" % (
                 self.__class__.__name__, self._name_, self._value_)
